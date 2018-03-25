@@ -1,0 +1,13 @@
+.badge-danger {
+    display: none;
+}
+
+
+
+.list-group-item:hover .badge-danger {
+     display: block; 
+}
+
+i.fa.fa-check-circle-o.fa-lg {
+    color: green;
+}
