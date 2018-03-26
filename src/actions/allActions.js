@@ -18,16 +18,24 @@ export const logout = () => {
 
 export const addItem = (username, token, task) => {
     return dispatch => {
+        if(task===""){
+            dispatch({
+                type:'DONT_DO_ANYTHING'
+            })
+        }else{
         axios.post(`http://localhost:5000/todos/users/${username}/tasks/new`, { taskname: task },
             {
                 headers: { 'x-access-token': token }
             }).then(res => {
-                dispatch({
-                    type: 'ADD_ITEM',
-                    payload: res.data
-                })
+                if(res.status === 200) {
+                    dispatch({
+                        type: 'ADD_ITEM',
+                        payload: res.data
+                    })
+                }
+               
             })
-    }
+    }}
 };
 
 
@@ -82,10 +90,14 @@ export const moveItemToCompleted = (username, token, id) => {
             {
                 headers: { 'x-access-token': token }
             }).then(res => {
-                dispatch({
-                    type: 'MOVE_ITEM_TO_COMPLETED',
-                    payload: { res, id }
-                })
+                
+                
+                if(res.status === 200 && res.data!==''){
+                    dispatch({
+                        type: 'MOVE_ITEM_TO_COMPLETED',
+                        payload: { res, id }
+                    })
+                }
             })
     }
 };
@@ -97,10 +109,13 @@ export const moveBackToTodo = (username, token, id) => {
             {
                 headers: { 'x-access-token': token }
             }).then(res => {
-                dispatch({
-                    type: 'MOVE_BACK_TO_TODO',
-                    payload: { res, id }
-                })
+                console.log(res);
+                if(res.status === 200 && res.data!==''){
+                    dispatch({
+                        type: 'MOVE_BACK_TO_TODO',
+                        payload: { res, id }
+                    })
+                }
             })
     }
 };

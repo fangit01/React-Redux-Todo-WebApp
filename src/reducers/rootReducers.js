@@ -5,8 +5,17 @@ var initial_state = {
 };
 
 
+
+
 var rootReducers = (state = initial_state, action) => {
     switch (action.type) {
+
+        case 'DONT_DO_ANYTHING':
+            return {
+                ...state
+            }
+
+
 
         case 'INITIAL_FETCHING_DATA_FROM_SERVER':
             return {
@@ -46,21 +55,39 @@ var rootReducers = (state = initial_state, action) => {
             var filtertasksArray1 = state.tasks.filter(item => {
                 return item._id !== action.payload.id
             });
+
+            if(state.completedTasks.find(obj => obj._id === action.payload.id)){
+                // {sometimes user click too fast, prevent double entry}
+                return {
+                    ...state,
+                    tasks: filtertasksArray1
+                }
+            } else {
             return {
                 ...state,
                 tasks: filtertasksArray1,
                 completedTasks: [...state.completedTasks, action.payload.res.data]
-            }
+            }}
 
         case 'MOVE_BACK_TO_TODO':
             var filtertasksArray3 = state.completedTasks.filter(item => {
                 return item._id !== action.payload.id
             });
-            return {
-                ...state,
-                completedTasks: filtertasksArray3,
-                tasks: [...state.tasks, action.payload.res.data]
-            }
+
+            if(state.tasks.find(obj => obj._id === action.payload.id)){
+                // {sometimes user click too fast, prevent double entry}
+                return {
+                    ...state,
+                    completedTasks: filtertasksArray3
+                }} else{
+                    return {
+                        ...state,
+                        completedTasks: filtertasksArray3,
+                        tasks: [...state.tasks, action.payload.res.data]
+                    }
+                }
+
+         
 
 
         case 'REMOVE_ITEM_FROM_COMPLETED':

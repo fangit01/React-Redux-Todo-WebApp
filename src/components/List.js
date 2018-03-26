@@ -40,8 +40,6 @@ class List extends Component {
              </div>
                 }
                
-
-
                 {this.props.todos.tasks.length !== 0 ?
                     <ul className="list-group">
                         {this.props.todos.tasks.map((item, index) => {
@@ -83,9 +81,9 @@ class List extends Component {
     }
 }
 
-function mapStateToProps(reduxInitialState) {
+function mapStateToProps(state) {
     return {
-        todos: reduxInitialState
+        todos: state
     }
 
 }
