@@ -6,5 +6,5 @@ https://calm-woodland-39315.herokuapp.com/
 
 check my portfolio website for the demo accounts.
 
-# backend code (node and mangoDB)
+# backend code (node and mongoDB)
 https://github.com/fangit01/Node-Todo-WebApp-Backend
