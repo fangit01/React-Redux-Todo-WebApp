@@ -29,7 +29,7 @@ class List extends Component {
     render() {
         return (
             <div>
-                <h3>{this.props.todos.userInfo.username}'s Todo List</h3>
+                <h3>{this.props.todos.userInfo.username} Todo List</h3>
 
                 { localStorage.getItem('closeTips') === 'yes' || this.state.closeTips === 'yes'? null:
                  <div className="alert alert-warning" role="alert">
